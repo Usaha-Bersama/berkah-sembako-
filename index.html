@@ -24,14 +24,14 @@
 <div id="cart-drawer" class="fixed inset-0 bg-black/50 hidden z-50"><div class="absolute right-0 top-0 h-full w-full max-w-sm bg-white flex flex-col"><div class="p-4 border-b flex justify-between"><b>Keranjang</b><button onclick="closeCart()" class="bg-gray-100 w-8 h-8 rounded-full"><i class="fa fa-times"></i></button></div><div id="cart-items" class="flex-1 overflow-auto p-4"></div><div class="p-4 border-t"><div class="flex justify-between font-bold mb-3"><span>Total</span><span id="cart-total">Rp 0</span></div><button onclick="checkoutWA()" class="w-full bg-green-600 text-white py-3 rounded-full font-bold"><i class="fab fa-whatsapp"></i> Checkout ke 081229768081</button></div></div></div>
 <script>
 var products=[
-{id:1,name:"Beras Premium 5kg",price:67500,img:"https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400",desc:"Beras premium pulen, wangi, bersih. Cocok untuk nasi sehari-hari, 5kg."},
-{id:2,name:"Beras Medium 5kg",price:59000,img:"https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?w=400",desc:"Beras medium hemat, kualitas bagus. Tetap pulen untuk makan keluarga."},
-{id:3,name:"Minyak Tropical 2L",price:32500,img:"https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400",desc:"Minyak goreng Tropical 2 liter, jernih, tidak cepat hitam, hemat."},
+{id:1,name:"Beras Premium",price:67500,img:"https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400",desc:"Beras premium pulen, wangi, bersih. Cocok untuk nasi sehari-hari.",varianHarga:[{nama:"1kg",harga:13500},{nama:"5kg",harga:67500},{nama:"10kg",harga:130000}]},
+{id:2,name:"Beras Medium",price:59000,img:"https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?w=400",desc:"Beras medium hemat, kualitas bagus. Tetap pulen untuk makan keluarga.",varianHarga:[{nama:"1kg",harga:11800},{nama:"5kg",harga:59000},{nama:"10kg",harga:115000}]},
+{id:3,name:"Minyak Tropical",price:32500,img:"https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400",desc:"Minyak goreng Tropical, jernih, tidak cepat hitam, hemat.",varianHarga:[{nama:"1L",harga:17500},{nama:"2L",harga:32500}]},
 {id:4,name:"Minyak Kita 1L",price:15700,img:"https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400",desc:"Minyak Kita 1 liter, minyak goreng subsidi kualitas terjamin."},
-{id:5,name:"Gula Pasir 1kg",price:15500,img:"https://images.unsplash.com/photo-1581441363689-1f3c3c414635?w=400",desc:"Gula pasir putih bersih 1kg, manis pas untuk teh, kopi dan masak."},
+{id:5,name:"Gula Pasir",price:15500,img:"https://images.unsplash.com/photo-1581441363689-1f3c3c414635?w=400",desc:"Gula pasir putih bersih, manis pas untuk teh, kopi dan masak.",varianHarga:[{nama:"500gr",harga:8500},{nama:"1kg",harga:15500}]},
 {id:6,name:"Tepung Segitiga 1kg",price:12500,img:"https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400",desc:"Tepung terigu Segitiga Biru 1kg, untuk gorengan dan kue jadi renyah."},
-{id:7,name:"Telur Ayam 1kg",price:29500,img:"https://images.unsplash.com/photo-1518569656558-1f25e69e163d?w=400",desc:"Telur ayam segar 1kg isi 16 butir, dari kandang setiap hari."},
-{id:8,name:"Indomie Goreng 1 Dus",price:112000,img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400",desc:"Indomie Goreng 1 dus isi 40 bungkus. Stok aman, harga grosir.",varian:["Goreng Original","Goreng Rendang","Goreng Aceh"]},
+{id:7,name:"Telur Ayam",price:29500,img:"https://images.unsplash.com/photo-1518569656558-1f25e69e163d?w=400",desc:"Telur ayam segar, dari kandang setiap hari.",varianHarga:[{nama:"500gr",harga:15000},{nama:"1kg",harga:29500}]},
+{id:8,name:"Indomie Goreng",price:2800,img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400",desc:"Indomie Goreng, stok aman, harga grosir.",varianHarga:[{nama:"1 Bungkus",harga:2800},{nama:"1 Dus (40)",harga:112000}]},
 {id:9,name:"Molto 1 Renteng",price:6000,img:"f1.jpg",img2:"f2.jpg",desc:"Molto pewangi pakaian 1 renteng isi 12 sachet. Wangi tahan lama.",varian:["Pandan","Bunga","Lavender","Sakura"]}
 ];
 var cart=JSON.parse(localStorage.getItem('c')||'[]');
@@ -43,16 +43,23 @@ var p=list[i];
 var ket2="";
 if(p.img2){ ket2='<p style="font-size:11px;color:#3b82f6;">Klik foto untuk foto ke-2</p>'; }
 var varianHtml="";
-if(p.varian){
+if(p.varianHarga){
+varianHtml='<select id="varian-'+p.id+'" onchange="updateHarga('+p.id+')" class="w-full mt-1 p-1.5 text-xs border rounded-lg bg-gray-50">';
+for(var v=0;v<p.varianHarga.length;v++){ varianHtml+='<option value="'+v+'">'+p.varianHarga[v].nama+' - Rp '+p.varianHarga[v].harga.toLocaleString('id-ID')+'</option>'; }
+varianHtml+='</select>';
+} else if(p.varian){
 varianHtml='<select id="varian-'+p.id+'" class="w-full mt-1 p-1.5 text-xs border rounded-lg bg-gray-50">';
 for(var v=0;v<p.varian.length;v++){ varianHtml+='<option>'+p.varian[v]+'</option>'; }
-varianHtml+='</select><p style="font-size:11px;color:#666;">Pilih varian dulu</p>';
+varianHtml+='</select>';
 }
-html+='<div class="bg-white rounded-xl overflow-hidden border"><img src="'+p.img+'" id="foto-'+p.id+'" onclick="gantiFoto('+p.id+')" class="w-full h-36 object-cover"><div class="p-2"><h3 class="text-sm font-bold">'+p.name+'</h3><p class="text-xs text-gray-500">'+p.desc+'</p><p class="text-green-600 font-bold text-sm mt-1">Rp '+p.price.toLocaleString('id-ID')+'</p>'+ket2+varianHtml+'<button onclick="add('+p.id+')" class="mt-2 w-full bg-green-600 text-white py-1.5 rounded-full text-sm">+ Tambah</button></div></div>';
+html+='<div class="bg-white rounded-xl overflow-hidden border"><img src="'+p.img+'" id="foto-'+p.id+'" onclick="gantiFoto('+p.id+')" class="w-full h-36 object-cover"><div class="p-2"><h3 class="text-sm font-bold">'+p.name+'</h3><p class="text-xs text-gray-500">'+p.desc+'</p><p id="harga-'+p.id+'" class="text-green-600 font-bold text-sm mt-1">Rp '+p.price.toLocaleString('id-ID')+'</p>'+ket2+varianHtml+'<button onclick="add('+p.id+')" class="mt-2 w-full bg-green-600 text-white py-1.5 rounded-full text-sm">+ Tambah</button></div></div>';
 }
 if(html==""){ html='<p class="col-span-2 text-center text-gray-400 py-10">Produk tidak ditemukan</p>'; }
 document.getElementById('produk').innerHTML=html;
 update();
+}
+function updateHarga(id){
+for(var i=0;i<products.length;i++){ if(products[i].id==id){ var p=products[i]; var sel=document.getElementById('varian-'+id); var idx=parseInt(sel.value); var hrg=p.varianHarga[idx].harga; document.getElementById('harga-'+id).innerText='Rp '+hrg.toLocaleString('id-ID'); } }
 }
 function gantiFoto(id){
 for(var i=0;i<products.length;i++){ if(products[i].id==id){ var p=products[i]; var el=document.getElementById('foto-'+id); if(!p.img2) return; if(el.src.indexOf(p.img)>-1){ el.src=p.img2; } else { el.src=p.img; } } }
@@ -62,10 +69,12 @@ function filterKat(kat){if(kat=='all'){render(products);return;}var f=[];for(var
 function add(id){
 var p=null; for(var i=0;i<products.length;i++){ if(products[i].id==id) p=products[i]; }
 var namaFinal=p.name;
+var hargaFinal=p.price;
 var sel=document.getElementById('varian-'+id);
-if(sel){ namaFinal=p.name+' - '+sel.value; }
+if(p.varianHarga && sel){ var idx=parseInt(sel.value); namaFinal=p.name+' - '+p.varianHarga[idx].nama; hargaFinal=p.varianHarga[idx].harga; }
+else if(sel){ namaFinal=p.name+' - '+sel.value; }
 var f=null; for(var i=0;i<cart.length;i++){ if(cart[i].namaFinal==namaFinal) f=cart[i]; }
-if(f){ f.qty++; } else { cart.push({id:p.id,namaFinal:namaFinal,name:namaFinal,price:p.price,img:p.img,qty:1}); }
+if(f){ f.qty++; } else { cart.push({id:p.id,namaFinal:namaFinal,name:namaFinal,price:hargaFinal,img:p.img,qty:1}); }
 save();
 }
 function save(){localStorage.setItem('c',JSON.stringify(cart));update();}
