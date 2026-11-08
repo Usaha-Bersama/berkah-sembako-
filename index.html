@@ -85,6 +85,6 @@ function chg(i,d){cart[i].qty+=d;if(cart[i].qty<=0)cart.splice(i,1);save();}
 function del(i){cart.splice(i,1);save();}
 function openCart(){document.getElementById('cart-drawer').classList.remove('hidden');}
 function closeCart(){document.getElementById('cart-drawer').classList.add('hidden');}
-function checkoutWA(){if(!cart.length)return;var total=0;for(var i=0;i<cart.length;i++){ total+=cart[i].price*cart[i].qty; } var msg='Halo Berkah Sembako%0ASaya mau pesan:%0A';for(var i=0;i<cart.length;i++){ msg+='- '+cart[i].name+' x'+cart[i].qty+' = Rp '+(cart[i].price*cart[i].qty).toLocaleString('id-ID')+'%0A'; } msg+='%0ATotal: Rp '+total.toLocaleString('id-ID')+'%0AAlamat:%0A';window.open('https://wa.me/6281229768081?text='+msg,'_blank');}
+function checkoutWA(){if(!cart.length)return;var total=0;for(var i=0;i<cart.length;i++){ total+=cart[i].price*cart[i].qty; } var msg='Halo Berkah Sembako%0ASaya mau pesan:%0A';for(var i=0;i<cart.length;i++){ msg+='- '+cart[i].name+' x'+cart[i].qty+' = Rp '+(cart[i].price*cart[i].qty).toLocaleString('id-ID')+'%0A'; } msg+='%0ATotal: Rp '+total.toLocaleString('id-ID')+'%0AAlamat:%0A%0A%0ATerima kasih sudah order di Berkah Sembako 🙏%0Aالحمد لله جزاكم الله خيرا';
 render(products);
 </script></body></html>
