@@ -33,7 +33,7 @@ var products=[
 {id:7,name:"Telur Ayam",price:29500,img:"https://images.unsplash.com/photo-1518569656558-1f25e69e163d?w=400",desc:"Telur ayam segar, dari kandang setiap hari.",varianHarga:[{nama:"500gr",harga:15000},{nama:"1kg",harga:29500}]},
 {id:8,name:"Indomie Goreng",price:2800,img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400",desc:"Indomie Goreng, stok aman, harga grosir.",varianHarga:[{nama:"1 Bungkus",harga:2800},{nama:"1 Dus (40)",harga:112000}]},
 {id:9,name:"Molto 1 Renteng",price:6000,img:"f1.jpg",img2:"f2.jpg",desc:"Molto pewangi pakaian 1 renteng isi 12 sachet. Wangi tahan lama.",varian:["Pandan","Bunga","Lavender","Sakura"]},
-{id:10,name:"Rinso saset 1 Renteng",price:12,img:"f1.jpg",img2:"f2.jpg",desc:"Molto pewangi pakaian 1 renteng isi 12 sachet. Wangi tahan lama.",varian:["Pandan","Bunga","Lavender","Sakura"]},
+{id:10,name:"Rinso saset 1 Renteng",price:12000,img:"f1.jpg",img2:"f2.jpg",desc:"Rinso saset 1 renteng isi 12 sachet. Bersih, wangi.",varian:["Pandan","Bunga","Lavender","Sakura"]},
 {id:11,name:"Gula Aren",price:15500,img:"https://images.unsplash.com/photo-1581441363689-1f3c3c414635?w=400",desc:"Gula pasir putih bersih, manis pas untuk teh, kopi dan masak.",varianHarga:[{nama:"200gr",harga:8500},{nama:"400gr",harga:15500}]}
 ];
 var cart=JSON.parse(localStorage.getItem('c')||'[]');
@@ -85,6 +85,6 @@ function chg(i,d){cart[i].qty+=d;if(cart[i].qty<=0)cart.splice(i,1);save();}
 function del(i){cart.splice(i,1);save();}
 function openCart(){document.getElementById('cart-drawer').classList.remove('hidden');}
 function closeCart(){document.getElementById('cart-drawer').classList.add('hidden');}
-function checkoutWA(){if(!cart.length)return;var total=0;for(var i=0;i<cart.length;i++){ total+=cart[i].price*cart[i].qty; } var msg='Halo Berkah Sembako%0ASaya mau pesan:%0A';for(var i=0;i<cart.length;i++){ msg+='- '+cart[i].name+' x'+cart[i].qty+' = Rp '+(cart[i].price*cart[i].qty).toLocaleString('id-ID')+'%0A'; } msg+='%0ATotal: Rp '+total.toLocaleString('id-ID')+'%0AAlamat:%0A%0A%0ATerima kasih sudah order di Berkah Sembako 🙏%0Aالحمد لله جزاكم الله خيرا';
+function checkoutWA(){if(!cart.length)return;var total=0;for(var i=0;i<cart.length;i++){ total+=cart[i].price*cart[i].qty; } var msg='Halo Berkah Sembako%0ASaya mau pesan:%0A';for(var i=0;i<cart.length;i++){ msg+='- '+cart[i].name+' x'+cart[i].qty+' = Rp '+(cart[i].price*cart[i].qty).toLocaleString('id-ID')+'%0A'; } msg+='%0ATotal: Rp '+total.toLocaleString('id-ID')+'%0AAlamat:%0A%0A%0ATerima kasih sudah order di Berkah Sembako 🙏%0Aالحمد لله جزاكم الله خيرا';window.open('https://wa.me/6281229768081?text='+msg,'_blank');}
 render(products);
 </script></body></html>
