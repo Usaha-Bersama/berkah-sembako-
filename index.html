@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Toko Berkah Sembako - WA 081229768081</title><script src="https://cdn.tailwindcss.com"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"></head>
-<body class="bg-gray-50">
+<body class="bg-pink-100">
 <header class="bg-white sticky top-0 z-50 shadow">
-<div class="bg-green-600 text-white text-center text-sm py-1">Gratis Ongkir Cikarang! WA 081229768081</div>
+<div class="bg-blue-600 text-white text-center text-sm py-1">Gratis Ongkir Cikarang! WA 081229768081</div>
 <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-<div class="flex gap-2 items-center"><div class="bg-green-600 w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold">B</div><div><h1 class="font-bold">Berkah Sembako</h1><p class="text-xs text-gray-500">WA: 081229768081</p></div></div>
-<button onclick="openCart()" class="bg-green-50 text-green-600 px-4 py-2 rounded-full text-sm font-bold"><i class="fa fa-shopping-cart"></i> Keranjang <span id="cart-count" class="bg-red-500 text-white text-xs px-1.5 rounded-full">0</span></button>
+<div class="flex gap-2 items-center"><div class="bg-blue-600 w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold">B</div><div><h1 class="font-bold">Berkah Sembako</h1><p class="text-xs text-gray-500">WA: 081229768081</p></div></div>
+<button onclick="openCart()" class="bg-blue-50 text-blue-600 px-4 py-2 rounded-full text-sm font-bold"><i class="fa fa-shopping-cart"></i> Keranjang <span id="cart-count" class="bg-red-500 text-white text-xs px-1.5 rounded-full">0</span></button>
 </div></header>
-<div class="max-w-7xl mx-auto px-4 mt-4 bg-gradient-to-r from-green-600 to-yellow-500 rounded-2xl p-6 text-white"><h2 class="text-2xl font-bold">Berkah Sembako - Pesan Langsung WA</h2><p class="text-sm mt-1">Checkout otomatis ke WA 081229768081</p></div>
+<div class="max-w-7xl mx-auto px-4 mt-4 bg-gradient-to-r from-blue-600 to-red-500 rounded-2xl p-6 text-white"><h2 class="text-2xl font-bold">Berkah Sembako - Pesan Langsung WA</h2><p class="text-sm mt-1">Checkout otomatis ke WA 081229768081</p></div>
 <div class="max-w-7xl mx-auto px-4 mt-4">
-<input type="text" id="searchInput" onkeyup="cari()" placeholder="Cari Beras, Gula, Molto..." class="w-full p-3 rounded-xl border-2 border-green-600 bg-white outline-none">
+<input type="text" id="searchInput" onkeyup="cari()" placeholder="Cari Beras, Gula, Molto..." class="w-full p-3 rounded-xl border-2 border-blue-600 bg-white outline-none">
 <div class="flex gap-2 mt-3 overflow-x-auto pb-1">
-<button onclick="filterKat('all')" class="whitespace-nowrap px-4 py-1.5 rounded-full bg-green-600 text-white text-sm font-bold">Semua</button>
+<button onclick="filterKat('all')" class="whitespace-nowrap px-4 py-1.5 rounded-full bg-blue-600 text-white text-sm font-bold">Semua</button>
 <button onclick="filterKat('Beras')" class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white border text-sm">Beras</button>
 <button onclick="filterKat('Minyak')" class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white border text-sm">Minyak</button>
 <button onclick="filterKat('Molto')" class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white border text-sm">Molto</button>
@@ -21,7 +21,7 @@
 </div>
 </div>
 <div class="max-w-7xl mx-auto px-4 mt-4 grid grid-cols-2 md:grid-cols-4 gap-3" id="produk"></div>
-<div id="cart-drawer" class="fixed inset-0 bg-black/50 hidden z-50"><div class="absolute right-0 top-0 h-full w-full max-w-sm bg-white flex flex-col"><div class="p-4 border-b flex justify-between"><b>Keranjang</b><button onclick="closeCart()" class="bg-gray-100 w-8 h-8 rounded-full"><i class="fa fa-times"></i></button></div><div id="cart-items" class="flex-1 overflow-auto p-4"></div><div class="p-4 border-t"><div class="flex justify-between font-bold mb-3"><span>Total</span><span id="cart-total">Rp 0</span></div><button onclick="checkoutWA()" class="w-full bg-green-600 text-white py-3 rounded-full font-bold"><i class="fab fa-whatsapp"></i> Checkout ke 081229768081</button></div></div></div>
+<div id="cart-drawer" class="fixed inset-0 bg-black/50 hidden z-50"><div class="absolute right-0 top-0 h-full w-full max-w-sm bg-white flex flex-col"><div class="p-4 border-b flex justify-between"><b>Keranjang</b><button onclick="closeCart()" class="bg-gray-100 w-8 h-8 rounded-full"><i class="fa fa-times"></i></button></div><div id="cart-items" class="flex-1 overflow-auto p-4"></div><div class="p-4 border-t"><div class="flex justify-between font-bold mb-3"><span>Total</span><span id="cart-total">Rp 0</span></div><button onclick="checkoutWA()" class="w-full bg-blue-600 text-white py-3 rounded-full font-bold"><i class="fab fa-whatsapp"></i> Checkout ke 081229768081</button></div></div></div>
 <script>
 var products=[
 {id:1,name:"Beras Premium",price:67500,img:"https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400",desc:"Beras premium pulen, wangi, bersih. Cocok untuk nasi sehari-hari.",varianHarga:[{nama:"1kg",harga:13500},{nama:"5kg",harga:67500},{nama:"10kg",harga:130000}]},
@@ -52,7 +52,7 @@ varianHtml='<select id="varian-'+p.id+'" class="w-full mt-1 p-1.5 text-xs border
 for(var v=0;v<p.varian.length;v++){ varianHtml+='<option>'+p.varian[v]+'</option>'; }
 varianHtml+='</select>';
 }
-html+='<div class="bg-white rounded-xl overflow-hidden border"><img src="'+p.img+'" id="foto-'+p.id+'" onclick="gantiFoto('+p.id+')" class="w-full h-36 object-cover"><div class="p-2"><h3 class="text-sm font-bold">'+p.name+'</h3><p class="text-xs text-gray-500">'+p.desc+'</p><p id="harga-'+p.id+'" class="text-green-600 font-bold text-sm mt-1">Rp '+p.price.toLocaleString('id-ID')+'</p>'+ket2+varianHtml+'<button onclick="add('+p.id+')" class="mt-2 w-full bg-green-600 text-white py-1.5 rounded-full text-sm">+ Tambah</button></div></div>';
+html+='<div class="bg-white rounded-xl overflow-hidden border"><img src="'+p.img+'" id="foto-'+p.id+'" onclick="gantiFoto('+p.id+')" class="w-full h-36 object-cover"><div class="p-2"><h3 class="text-sm font-bold">'+p.name+'</h3><p class="text-xs text-gray-500">'+p.desc+'</p><p id="harga-'+p.id+'" class="text-blue-600 font-bold text-sm mt-1">Rp '+p.price.toLocaleString('id-ID')+'</p>'+ket2+varianHtml+'<button onclick="add('+p.id+')" class="mt-2 w-full bg-blue-600 text-white py-1.5 rounded-full text-sm">+ Tambah</button></div></div>';
 }
 if(html==""){ html='<p class="col-span-2 text-center text-gray-400 py-10">Produk tidak ditemukan</p>'; }
 document.getElementById('produk').innerHTML=html;
@@ -78,7 +78,7 @@ if(f){ f.qty++; } else { cart.push({id:p.id,namaFinal:namaFinal,name:namaFinal,p
 save();
 }
 function save(){localStorage.setItem('c',JSON.stringify(cart));update();}
-function update(){var jml=0;var total=0;for(var i=0;i<cart.length;i++){ jml+=cart[i].qty; total+=cart[i].price*cart[i].qty; } document.getElementById('cart-count').innerText=jml; document.getElementById('cart-total').innerText='Rp '+total.toLocaleString('id-ID'); var h=""; for(var i=0;i<cart.length;i++){ var c=cart[i]; h+='<div class="flex gap-2 border-b py-2"><img src="'+c.img+'" class="w-12 h-12 rounded"><div class="flex-1"><p class="text-sm font-bold">'+c.name+'</p><p class="text-xs text-green-600">Rp '+c.price.toLocaleString('id-ID')+' x '+c.qty+'</p><div class="flex gap-2 mt-1"><button onclick="chg('+i+',-1)" class="border w-6 h-6 rounded-full">-</button><span class="text-sm">'+c.qty+'</span><button onclick="chg('+i+',1)" class="border w-6 h-6 rounded-full">+</button></div></div><button onclick="del('+i+')" class="text-gray-300">X</button></div>'; } if(h=="") h='<p class="text-center text-gray-400 mt-10">Kosong</p>'; document.getElementById('cart-items').innerHTML=h;}
+function update(){var jml=0;var total=0;for(var i=0;i<cart.length;i++){ jml+=cart[i].qty; total+=cart[i].price*cart[i].qty; } document.getElementById('cart-count').innerText=jml; document.getElementById('cart-total').innerText='Rp '+total.toLocaleString('id-ID'); var h=""; for(var i=0;i<cart.length;i++){ var c=cart[i]; h+='<div class="flex gap-2 border-b py-2"><img src="'+c.img+'" class="w-12 h-12 rounded"><div class="flex-1"><p class="text-sm font-bold">'+c.name+'</p><p class="text-xs text-blue-600">Rp '+c.price.toLocaleString('id-ID')+' x '+c.qty+'</p><div class="flex gap-2 mt-1"><button onclick="chg('+i+',-1)" class="border w-6 h-6 rounded-full">-</button><span class="text-sm">'+c.qty+'</span><button onclick="chg('+i+',1)" class="border w-6 h-6 rounded-full">+</button></div></div><button onclick="del('+i+')" class="text-gray-300">X</button></div>'; } if(h=="") h='<p class="text-center text-gray-400 mt-10">Kosong</p>'; document.getElementById('cart-items').innerHTML=h;}
 function chg(i,d){cart[i].qty+=d;if(cart[i].qty<=0)cart.splice(i,1);save();}
 function del(i){cart.splice(i,1);save();}
 function openCart(){document.getElementById('cart-drawer').classList.remove('hidden');}
