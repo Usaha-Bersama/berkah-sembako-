@@ -31,8 +31,8 @@ var products=[
 {id:5,name:"Gula Pasir 1kg",price:15500,img:"https://images.unsplash.com/photo-1581441363689-1f3c3c414635?w=400",desc:"Gula pasir putih bersih 1kg, manis pas untuk teh, kopi dan masak."},
 {id:6,name:"Tepung Segitiga 1kg",price:12500,img:"https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400",desc:"Tepung terigu Segitiga Biru 1kg, untuk gorengan dan kue jadi renyah."},
 {id:7,name:"Telur Ayam 1kg",price:29500,img:"https://images.unsplash.com/photo-1518569656558-1f25e69e163d?w=400",desc:"Telur ayam segar 1kg isi 16 butir, dari kandang setiap hari."},
-{id:8,name:"Indomie Goreng 1 Dus",price:112000,img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400",desc:"Indomie Goreng 1 dus isi 40 bungkus. Stok aman, harga grosir."},
-{id:9,name:"Molto 1 Renteng",price:6000,img:"f1.jpg",img2:"f2.jpg",desc:"Molto pewangi pakaian 1 renteng isi 12 sachet. Wangi tahan lama."}
+{id:8,name:"Indomie Goreng 1 Dus",price:112000,img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400",desc:"Indomie Goreng 1 dus isi 40 bungkus. Stok aman, harga grosir.",varian:["Goreng Original","Goreng Rendang","Goreng Aceh"]},
+{id:9,name:"Molto 1 Renteng",price:6000,img:"f1.jpg",img2:"f2.jpg",desc:"Molto pewangi pakaian 1 renteng isi 12 sachet. Wangi tahan lama.",varian:["Pandan","Bunga","Lavender","Sakura"]}
 ];
 var cart=JSON.parse(localStorage.getItem('c')||'[]');
 function render(list){
@@ -42,7 +42,13 @@ for(var i=0;i<list.length;i++){
 var p=list[i];
 var ket2="";
 if(p.img2){ ket2='<p style="font-size:11px;color:#3b82f6;">Klik foto untuk foto ke-2</p>'; }
-html+='<div class="bg-white rounded-xl overflow-hidden border"><img src="'+p.img+'" id="foto-'+p.id+'" onclick="gantiFoto('+p.id+')" class="w-full h-36 object-cover"><div class="p-2"><h3 class="text-sm font-bold">'+p.name+'</h3><p class="text-xs text-gray-500">'+p.desc+'</p><p class="text-green-600 font-bold text-sm mt-1">Rp '+p.price.toLocaleString('id-ID')+'</p>'+ket2+'<button onclick="add('+p.id+')" class="mt-2 w-full bg-green-600 text-white py-1.5 rounded-full text-sm">+ Tambah</button></div></div>';
+var varianHtml="";
+if(p.varian){
+varianHtml='<select id="varian-'+p.id+'" class="w-full mt-1 p-1.5 text-xs border rounded-lg bg-gray-50">';
+for(var v=0;v<p.varian.length;v++){ varianHtml+='<option>'+p.varian[v]+'</option>'; }
+varianHtml+='</select><p style="font-size:11px;color:#666;">Pilih varian dulu</p>';
+}
+html+='<div class="bg-white rounded-xl overflow-hidden border"><img src="'+p.img+'" id="foto-'+p.id+'" onclick="gantiFoto('+p.id+')" class="w-full h-36 object-cover"><div class="p-2"><h3 class="text-sm font-bold">'+p.name+'</h3><p class="text-xs text-gray-500">'+p.desc+'</p><p class="text-green-600 font-bold text-sm mt-1">Rp '+p.price.toLocaleString('id-ID')+'</p>'+ket2+varianHtml+'<button onclick="add('+p.id+')" class="mt-2 w-full bg-green-600 text-white py-1.5 rounded-full text-sm">+ Tambah</button></div></div>';
 }
 if(html==""){ html='<p class="col-span-2 text-center text-gray-400 py-10">Produk tidak ditemukan</p>'; }
 document.getElementById('produk').innerHTML=html;
@@ -53,7 +59,15 @@ for(var i=0;i<products.length;i++){ if(products[i].id==id){ var p=products[i]; v
 }
 function cari(){var q=document.getElementById('searchInput').value.toLowerCase();var f=[];for(var i=0;i<products.length;i++){ if(products[i].name.toLowerCase().indexOf(q)>-1){ f.push(products[i]); } } render(f);}
 function filterKat(kat){if(kat=='all'){render(products);return;}var f=[];for(var i=0;i<products.length;i++){ if(products[i].name.toLowerCase().indexOf(kat.toLowerCase())>-1){ f.push(products[i]); } } render(f);}
-function add(id){var f=null;var p=null;for(var i=0;i<cart.length;i++){ if(cart[i].id==id) f=cart[i]; } for(var i=0;i<products.length;i++){ if(products[i].id==id) p=products[i]; } if(f){ f.qty++; } else { var np={id:p.id,name:p.name,price:p.price,img:p.img,qty:1}; cart.push(np); } save();}
+function add(id){
+var p=null; for(var i=0;i<products.length;i++){ if(products[i].id==id) p=products[i]; }
+var namaFinal=p.name;
+var sel=document.getElementById('varian-'+id);
+if(sel){ namaFinal=p.name+' - '+sel.value; }
+var f=null; for(var i=0;i<cart.length;i++){ if(cart[i].namaFinal==namaFinal) f=cart[i]; }
+if(f){ f.qty++; } else { cart.push({id:p.id,namaFinal:namaFinal,name:namaFinal,price:p.price,img:p.img,qty:1}); }
+save();
+}
 function save(){localStorage.setItem('c',JSON.stringify(cart));update();}
 function update(){var jml=0;var total=0;for(var i=0;i<cart.length;i++){ jml+=cart[i].qty; total+=cart[i].price*cart[i].qty; } document.getElementById('cart-count').innerText=jml; document.getElementById('cart-total').innerText='Rp '+total.toLocaleString('id-ID'); var h=""; for(var i=0;i<cart.length;i++){ var c=cart[i]; h+='<div class="flex gap-2 border-b py-2"><img src="'+c.img+'" class="w-12 h-12 rounded"><div class="flex-1"><p class="text-sm font-bold">'+c.name+'</p><p class="text-xs text-green-600">Rp '+c.price.toLocaleString('id-ID')+' x '+c.qty+'</p><div class="flex gap-2 mt-1"><button onclick="chg('+i+',-1)" class="border w-6 h-6 rounded-full">-</button><span class="text-sm">'+c.qty+'</span><button onclick="chg('+i+',1)" class="border w-6 h-6 rounded-full">+</button></div></div><button onclick="del('+i+')" class="text-gray-300">X</button></div>'; } if(h=="") h='<p class="text-center text-gray-400 mt-10">Kosong</p>'; document.getElementById('cart-items').innerHTML=h;}
 function chg(i,d){cart[i].qty+=d;if(cart[i].qty<=0)cart.splice(i,1);save();}
